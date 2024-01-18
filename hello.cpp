@@ -5,6 +5,7 @@
 #define MAGENTA "\033[35m"
 #define ROWS 6
 #define COLS 7
+// hi
 
 // check diagonal
 // improve Display & add names
