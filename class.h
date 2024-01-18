@@ -44,6 +44,7 @@ class game{
                 }
                 cout<< "|" << endl;
             }
+            cout << "---------------" << endl;
         }
         void checkHorizontal(int playrow)
         {
