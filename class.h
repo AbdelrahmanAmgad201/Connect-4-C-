@@ -25,7 +25,7 @@ class game{
         }
         void displayBoard()
         {
-            cout << MAGENTA << " 1 2 3 4 5 6 7"<< RESET <<endl;
+            cout << MAGENTA << "  1   2   3   4   5   6   7"<< RESET <<endl;
             for(int i = 0 ; i<ROWS ; i++)
             {
                 for(int j = 0 ; j<COLS; j++)
@@ -33,18 +33,18 @@ class game{
                     cout << "|";
                     if(plays[i][j] == 1)
                     {
-                        cout<< BLUE << "X" << RESET;
+                        cout<< BLUE << " X " << RESET;
                     }
                     else if(plays[i][j] == 2)
                     {
-                        cout<< RED << "X" << RESET ;
+                        cout<< RED << " X " << RESET ;
                     }
                     else
-                        cout << " ";
+                        cout << "   ";
                 }
                 cout<< "|" << endl;
             }
-            cout << "---------------" << endl;
+            cout << "+---+---+---+---+---+---+---+" << endl;
         }
         void checkHorizontal(int playrow)
         {
