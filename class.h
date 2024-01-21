@@ -166,13 +166,14 @@ class game{
             }
 
             // Undo block
+            // Undo block
             if (move == -1 && playCount != 0)
             {
-                cout << "hiiiiiiiii";
-                int resetMove = playCount--;
+                int resetMove = --playCount;
                 plays[history[resetMove] / 10][history[resetMove] % 10] = 0;
+                turn = (turn == 1) ? 2 : 1;
             }
-            else
+            else if (move >= 0 && move <=6)
             {
                 // Place the piece 
                 for (int i = ROWS - 1; i >= 0; --i)
@@ -185,13 +186,10 @@ class game{
                         checkHorizontal(i);
                         checkVertical(move);
                         checkDiagonals();
+                        turn = (turn == 1) ? 2 : 1;
                         break;
                     }
                 }
-
-            }
-            turn = (turn == 1) ? 2 : 1;
-            
+            }   
         }
-
 };
