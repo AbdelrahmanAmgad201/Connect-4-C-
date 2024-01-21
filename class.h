@@ -3,6 +3,7 @@ using namespace std;
 class game{
     public:
         int plays[ROWS][COLS] = {0};
+        int history[42] = {0};
         int turn = 1 ;
         int playCount = 0;
         string player1Name;
@@ -25,6 +26,7 @@ class game{
         }
         void displayBoard()
         {
+            cout << MAGENTA << "         Connect 4         "<< RESET <<endl;
             cout << MAGENTA << "  1   2   3   4   5   6   7"<< RESET <<endl;
             for(int i = 0 ; i<ROWS ; i++)
             {
@@ -125,7 +127,7 @@ class game{
 
             for(int i = ROWS - 3 ; i >= 0; i--)
             {
-                for(int j = 0 ;j<COLS - 3 ;j++)  // Corrected condition
+                for(int j = 0 ;j<COLS - 3 ;j++) 
                 {
                     if(plays[i][j] != 0)
                     {
@@ -154,31 +156,42 @@ class game{
             char moveC;
             cin >> moveC;
             int move = moveC - '1';
-            if (move > 6 || move < 0)
-            {
-                do {
-                    cout << "enter no between 1-7: ";
-                    cin >> moveC;
-                    move = moveC - '1'; 
-                } while (move > 6 || move < 0);
 
+            // Check if move is outside the valid range (1-7)
+            while (move < -1 || move >= 7)
+            {
+                cout << "Enter a number between 1-7 or (0 for undo): ";
+                cin >> moveC;
+                move = moveC - '1';
             }
 
-            for(int i = ROWS - 1; i >= 0; --i)
+            // Undo block
+            if (move == -1 && playCount != 0)
             {
-                if(plays[i][move] == 0)
+                cout << "hiiiiiiiii";
+                int resetMove = playCount--;
+                plays[history[resetMove] / 10][history[resetMove] % 10] = 0;
+            }
+            else
+            {
+                // Place the piece 
+                for (int i = ROWS - 1; i >= 0; --i)
                 {
-                    plays[i][move] = turn;
-                    turn = (turn == 1) ? 2 : 1;
-                    playCount++;
-                    checkHorizontal(i);
-                    checkVertical(move);
-                    checkDiagonals();
-                    break;  
-
+                    if (plays[i][move] == 0)
+                    {
+                        plays[i][move] = turn;
+                        history[playCount] = i * 10 + move;
+                        playCount++;
+                        checkHorizontal(i);
+                        checkVertical(move);
+                        checkDiagonals();
+                        break;
+                    }
                 }
-            }
-        }
 
+            }
+            turn = (turn == 1) ? 2 : 1;
+            
+        }
 
 };
